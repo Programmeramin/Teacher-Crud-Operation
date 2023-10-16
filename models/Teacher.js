@@ -4,15 +4,20 @@ const TeacherSchema = mongoose.Schema({
 
     name : {
         type : String,
-        required : true,
+        required : [true, "Name field is important"],
         trim : true,
+        lowercase : true,
+        minLength : 5,
+        maxLength : 15,
     },
-
+ 
     age : {
         type : Number,
         required : true,
+        min : 18,
+        max : 50,
        
-    },
+    },  
 
     profession : {
         type : String,
@@ -36,7 +41,7 @@ const TeacherSchema = mongoose.Schema({
         type : String,
         trim : true,
         required : true,
-        unique : true,
+        unique : [true, "Cell already exists"],
     },
 
 

@@ -153,7 +153,14 @@ export const GetTeacherCreated = async (req, res) =>{
 
 export const GetAllTeacher = async (req, res) =>{
 
-    const data = await Teacher.find();
+    // Data conditional find system
+
+    // const data = await Teacher.find().where("age").gt(20);
+    //  const data = await Teacher.find().and([{status : false, age : {$lte : 25}}]);
+    // const data = await Teacher.find().or([{status : false}, {age : {$lte : 25}}]);
+    // const data = await Teacher.find().where("status").in(["false"]);
+    //  const data = await Teacher.find().where("status").nin(["false"]);
+    const data = await Teacher.find({status : {$nin: ['true']}})
 
     res.status(200).json(data);
 
@@ -166,7 +173,10 @@ export const GetSingleTeacher = async (req, res) =>{
 
     const {id} = req.params;
 
-    const data = await Teacher.find({_id : id});
+    // const data = await Teacher.find({_id : id});
+    // const data = await Teacher.findById(id).select("name");
+    const data = await Teacher.findById(id).select("-name -age -status -college");
+ 
 
     res.status(200).json(data);
 
